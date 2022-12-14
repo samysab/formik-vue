@@ -1,7 +1,17 @@
 <script setup>
   import {reactive} from "vue";
 
-  const values = reactive({})
+  defineProps({
+    initialValues: {
+      type: Array,
+      required: true
+    },
+    validate: {
+      type: String,
+      required: true
+    }
+  })
+
   const errors = reactive({})
   const isSubmitting = reactive({})
 

@@ -3,5 +3,5 @@ import Formik from '@/components/Formik.vue'
 </script>
 
 <template>
-  <Formik />
+  <Formik :initialValues="['email', 'password']" :validate="'zdzd'"/>
 </template>
