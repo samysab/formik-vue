@@ -21,7 +21,7 @@
   const values = reactive(props.initialValues)
 
 
-  const errors = reactive({})
+  const errors = ref({})
   const isSubmitting = ref(false)
 
 
@@ -34,7 +34,7 @@
 </script>
 
 <template>
-  <form @onSubmit=handleSubmit>
+  <form @submit.prevent=handleSubmit>
     <Field v-for="(value, index) in this.values"
            :key="index"
            :name="value.name"
