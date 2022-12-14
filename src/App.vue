@@ -1,14 +1,45 @@
 <script setup>
+import {reactive} from "vue";
+
 import Formik from '@/components/Formik.vue'
 
 const values = reactive({})
 const errors = reactive({})
-const handleSubmit = reactive({})
-const isSubmitting = reactive({})
+
+const initialValues = reactive([
+  {
+    name: 'name',
+    as: 'input'
+  },
+  {
+    name: 'email',
+    as: 'input'
+  },
+  {
+    name: 'password',
+    as: 'input'
+  }
+]);
+
+function validate(values) {
+  const errors = {}
+  if (!values.email) {
+    errors.email = 'Required'
+  } else if (
+    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+  ) {
+    errors.email = 'Invalid email address'
+  }
+  return errors
+}
+
+function onSubmit(values) {
+  console.log('submitting', values)
+}
 
 
 </script>
 
 <template>
-  <Formik :initialValues="['email', 'password']" :validate="'zdzd'" :onSubmit="'r" @values="values" @errors="errors"/>
+  <Formik :initialValues="initialValues" :validate="validate" :onSubmit="onSubmit" @values="values" @errors="errors"/>
 </template>

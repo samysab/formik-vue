@@ -1,56 +1,45 @@
 <script setup>
-  import {reactive} from "vue";
+  import {reactive, ref} from "vue";
+  import Field from '@/components/Field.vue'
 
-  defineProps({
+
+  const props = defineProps({
     initialValues: {
       type: Array,
       required: true
     },
     validate: {
-      type: String,
+      type: Function,
+      required: true
+    },
+    onSubmit: {
+      type: Function,
       required: true
     }
   })
 
+  const values = reactive(props.initialValues)
+
+
   const errors = reactive({})
-  const isSubmitting = reactive({})
+  const isSubmitting = ref(false)
 
-  const $emit = defineEmits({
-    submit: (data) => {
-      return(
-          data !== null
-      )
-    }
-  })
-
-  const onSubmit = (e) => {
-    $emit('submit', values)
-  }
-
-//validate function
-  const validate = (values) => {
-    const errors = {}
-    if (!values.email) {
-      errors.email = 'Required'
-    } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-    ) {
-      errors.email = 'Invalid email address'
-    }
-    return errors
-  }
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    errors = validate(values)
+    this.errors.value = props.validate(values)
     if (Object.keys(errors).length === 0) {
-      onSubmit(values)
+      props.onSubmit(values)
     }
   }
 </script>
 
 <template>
-  <form @submit.prevent="handleSubmit">
-    <button type="submit">Submit</button>
+  <form @onSubmit=handleSubmit>
+    <Field v-for="(value, index) in this.values.value"
+           :key="index"
+           :name="value.name"
+           :as="value.as"
+    />
+    <button type="submit" v-bind:disabled="isSubmitting">Submit</button>
   </form>
 </template>
