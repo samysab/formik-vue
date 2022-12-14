@@ -18,6 +18,10 @@ const initialValues = reactive([
   {
     name: 'password',
     as: 'input'
+  },
+  {
+    name: 'test',
+    as: 'select'
   }
 ]);
 
