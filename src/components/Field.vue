@@ -12,5 +12,7 @@
 </script>
 
 <template>
-  <component :is="props.as" :name="props.name"/>
+  <component :is="props.as" :name="props.name">
+    <slot></slot>
+  </component>
 </template>
