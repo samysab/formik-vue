@@ -35,7 +35,7 @@
 
 <template>
   <form @onSubmit=handleSubmit>
-    <Field v-for="(value, index) in this.values.value"
+    <Field v-for="(value, index) in this.values"
            :key="index"
            :name="value.name"
            :as="value.as"
