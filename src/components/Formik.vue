@@ -29,6 +29,8 @@
     errors.value = props.validate(values)
     if (Object.keys(errors).length === 0) {
       props.onSubmit(values)
+    }else {
+      console.log('errors', errors.value)
     }
   }
 </script>
