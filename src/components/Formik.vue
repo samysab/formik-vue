@@ -26,7 +26,7 @@
 
 
   const handleSubmit = (e) => {
-    this.errors.value = props.validate(values)
+    errors.value = props.validate(values)
     if (Object.keys(errors).length === 0) {
       props.onSubmit(values)
     }
